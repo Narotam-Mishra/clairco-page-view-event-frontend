@@ -7,6 +7,7 @@ import { randomDate } from '../utilities/randomDate';
 
 
 const PageEventViewTable = () => {
+  // used same code from github repo for event data
   const [pageViews, setPageViews] = useState([]);
   const [error, setError] = useState(null);
 
@@ -26,21 +27,24 @@ const PageEventViewTable = () => {
     },
   };
 
+  // Read operation --> fetch event data on click of 'Fetch Page View Data' button
   const fetchPageViews = async () => {
     try {
-      const response = await axios.get('http://localhost:7373/api/v1/pageView');
+      const response = await axios.get('https://clairco-page-view-backend.onrender.com/api/v1/pageView');
       setPageViews(response.data);
-      setError(null); // Reset error if fetching is successful
+      // Reset error if fetching is successful
+      setError(null); 
     } catch (error) {
       console.error('Error fetching page views:', error);
       setError('Error fetching page views. Please try again.'); // Set error message
     }
   };
 
+  // Update PageView Event Table Data on click of 'Update Table Data' button
   const updateTableData = async () => {
     try {
       // Call the API endpoint to update all data
-      await axios.patch('http://localhost:7373/api/v1/pageView', upEventData);
+      await axios.patch('https://clairco-page-view-backend.onrender.com/api/v1/pageView', upEventData);
       console.log('All data updated successfully');
       // After updating, fetch the updated data
       fetchPageViews();
@@ -54,6 +58,7 @@ const PageEventViewTable = () => {
       <h2>Page View Events</h2>
       <button className='btn' onClick={fetchPageViews}>Fetch Page View Data</button>
 
+      {/* render page view event data into table  */}
       {error ? (
         <h2 style={{ color: 'red', marginTop: '10px' }}>{error}</h2>
       ) : (
@@ -61,25 +66,21 @@ const PageEventViewTable = () => {
           <table>
             <thead>
               <tr>
-                {/* <th>ID</th> */}
                 <th>Timestamp</th>
                 <th>User ID</th>
                 <th>User Created At</th>
                 <th>Title</th>
                 <th>Description</th>
-                {/* <th>Tags</th> */}
               </tr>
             </thead>
             <tbody>
               {pageViews.map((event) => (
                 <tr key={event._id}>
-                  {/* <td>{event.id}</td> */}
                   <td>{event.timestamp}</td>
                   <td>{event.user.id}</td>
                   <td>{event.user.created_at}</td>
                   <td>{event.page.title}</td>
                   <td>{event.page.description}</td>
-                  {/* <td>{event.page.tags.join(', ')}</td> */}
                 </tr>
               ))}
             </tbody>

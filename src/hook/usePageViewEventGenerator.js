@@ -5,6 +5,7 @@ import { randomDate } from '../utilities/randomDate';
 import axios from 'axios';
 
 const usePageviewGenerator = () => {
+  // reuse thesame code from given repo for page view event data
   const [pageview, setPageview] = useState(null);
 
   const generate = async () => {
@@ -25,8 +26,8 @@ const usePageviewGenerator = () => {
     };
 
     try {
-      // Send the page view event data to the server
-      await axios.post('http://localhost:7373/api/v1/pageView', event);
+      // Send the page view event data to the server (write operation)
+      await axios.post('https://clairco-page-view-backend.onrender.com/api/v1/pageView', event);
       setPageview(event);
     } catch (error) {
       console.error('Error sending page view event:', error);
