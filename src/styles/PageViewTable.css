@@ -26,3 +26,17 @@ button:hover{
     border-color: rgb(230, 45, 76); 
     background: #646cff;
 }
+
+#td-btn{
+    text-align: center;
+}
+
+.updateBtn{
+    margin-top: 20px;
+    background: rgb(247, 44, 78);
+}
+
+.updateBtn:hover{
+    background: skyblue;
+    color: rgb(247, 44, 78);
+}
